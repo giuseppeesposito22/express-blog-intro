@@ -1,18 +1,16 @@
+// Importazione dei moduli
+const { url, port } = require("./data/db");
+const postRouters = require("./routers/posts");
+
+// Configuaazione app js
 const express = require("express");
-const { posts } = require("./posts");
 const app = express();
-const port = 3000;
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send("Server del mio blog");
-});
-
-app.get("/bacheca", (req, res) => {
-  res.json({ posts });
-});
+// Utilizzo delle routers con architetttura REST
+app.use("/posts", postRouters);
 
 app.listen(port, () => {
-  console.log(`Collegato alla porta http://localhost:${port}`);
+  console.log(`Collegato alla porta ${url}:${port}`);
 });
